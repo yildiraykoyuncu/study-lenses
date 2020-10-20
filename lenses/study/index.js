@@ -34,6 +34,10 @@ const liveStudyLense = async ({ config, resource, responseData, requestData }) =
     }
   }
 
+  if (resource.content === null || resource.info === null || resource.error) {
+    return
+  }
+
   const type = detectType(resource)
 
 
@@ -67,6 +71,10 @@ const liveStudyLense = async ({ config, resource, responseData, requestData }) =
   ${typeView.scriptsHead()}
 
   ${renderDependencies(config.dependencies, resource)}
+  ${config.locals.tests ? `
+    <script src='${config.ownStatic}/dependencies/describe-it.js'></script>
+    <script src='${config.ownStatic}/dependencies/chai-and-chai-dom.js'></script>
+    ` : ''}
 
 </head>
 
